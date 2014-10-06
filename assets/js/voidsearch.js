@@ -66,11 +66,11 @@
 
 		tli = d.createElement('li');
 		tli.innerHTML = "<a class=name></a>"
-			+"<div class=version><b>Version: </b></div>"
-			+"<div class=revision><b>Revsion: </b></div>"
-			+"<div class=arch><b>Arch: </b></div>"
-			+"<div class=repo><b>Repo: </b></div>"
-			+"<div class=size><b>Size: </b></div>";
+			+"<div class=version><strong>Version: </strong></div>"
+			+"<div class=revision><strong>Revision: </strong></div>"
+			+"<div class=arch><strong>Arch: </strong></div>"
+			+"<div class=repo><strong>Repo: </strong></div>"
+			+"<div class=size><strong>Size: </strong></div>";
 		container.innerHTML = "";
 		for(i = 0; i < results.length; i++) {
 			if(found > maxResults && !showAll)
