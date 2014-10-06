@@ -53,16 +53,25 @@
 	}
 
 	function render() {
-		var a, tr, i, j, found = 0
-		  , tbody = document.createElement("tbody")
-		  , table = document.getElementById("voidSearch_result")
+		var a, tli, li, i, j, found = 0
+		  , container = d.getElementById("voidSearch_result")
+		  , list = d.createElement('ul')
 		  , empty = true
+		  , footer = d.createElement('div')
 
 		if(needle.join("").length < minsize) {
 			table.innerHTML = "";
 			return;
 		}
-		tbody.innerHTML = "<tr><th>Name</th><th>Version</th><th>Revision</th><th>Arch</th><th>Repository</th><th>Size (bytes)</th></tr>"
+
+		tli = d.createElement('li');
+		tli.innerHTML = "<a class=name></a>"
+			+"<div class=version><b>Version: </b></div>"
+			+"<div class=revision><b>Revsion: </b></div>"
+			+"<div class=arch><b>Arch: </b></div>"
+			+"<div class=repo><b>Repo: </b></div>"
+			+"<div class=size><b>Size: </b></div>";
+		container.innerHTML = "";
 		for(i = 0; i < results.length; i++) {
 			if(found > maxResults && !showAll)
 				break;
@@ -73,32 +82,27 @@
 			found++;
 
 			empty = false;
-			tr = document.createElement('tr');
-			tr.innerHTML = "<td class=name></td><td class=version></td><td class=revision></td><td class=arch></td><td class=repo></td><td class=size></td>";
-
-			a = document.createElement('a');
-			a.href = 'https://github.com/voidlinux/void-packages/tree/master/srcpkgs/' + results[i].name;
-			a.appendChild(document.createTextNode(results[i].name));
-			tr.childNodes[0].appendChild(a);
-			tr.childNodes[1].appendChild(document.createTextNode(results[i].version));
-			tr.childNodes[2].appendChild(document.createTextNode(results[i].revision));
-			tr.childNodes[3].appendChild(document.createTextNode(results[i].arch));
-			tr.childNodes[4].appendChild(document.createTextNode(results[i].repo));
-			tr.childNodes[5].appendChild(document.createTextNode(results[i].size));
-			tbody.appendChild(tr);
+			li = tli.cloneNode(true);
+			li.childNodes[0].href = 'https://github.com/voidlinux/void-packages/tree/master/srcpkgs/' + results[i].name;
+			li.childNodes[0].appendChild(d.createTextNode(results[i].name));
+			li.childNodes[1].appendChild(d.createTextNode(results[i].version));
+			li.childNodes[2].appendChild(d.createTextNode(results[i].revision));
+			li.childNodes[3].appendChild(d.createTextNode(results[i].arch));
+			li.childNodes[4].appendChild(d.createTextNode(results[i].repo));
+			li.childNodes[5].appendChild(d.createTextNode(results[i].size));
+			list.appendChild(li);
 		}
-		table.innerHTML = "";
-		table.appendChild(tbody);
-		tr = document.createElement("tr");
+		container.appendChild(list);
+		tr = d.createElement("tr");
 		if(r.readyState != 4)
-			tr.innerHTML = "<th colspan='6'>Loading...</th>";
+			footer.innerHTML = "Loading...";
 		else if(found > maxResults)
-			tr.innerHTML="<th colspan='6'>More than "+maxResults+" results. <a href='javascript:void(window.voidSearch(true));'>show all</a></th>";
+			footer.innerHTML="More than "+maxResults+" results. <a href='javascript:void(window.voidSearch(true));'>show all</a>";
 		else if(empty && r.readyState == 4)
-			tr.innerHTML="<th colspan='6'>No Results</th>";
+			footer.innerHTML="No Results";
 		else
 			return;
-		tbody.appendChild(tr);
+		container.appendChild(footer);
 	}
 	function startSearch() {
 		r = new XMLHttpRequest();
