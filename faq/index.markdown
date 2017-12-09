@@ -42,10 +42,10 @@ $ ./usr/bin/xbps-install -h
 ### Verifying integrity
 
 The image release directories contain a `sha256sums.txt` and a
-`sha256sums.txt.asc` file to verify the integrity of the downloaded images.
+`sha256sums.txt.sig` file to verify the integrity of the downloaded images.
 
 ```
-$ wget http://repo.voidlinux.eu/live/current/sha256sums.txt{,.asc}
+$ wget http://repo.voidlinux.eu/live/current/sha256sums.txt{,.sig}
 ```
 
 You can now verify the integrity of downloaded file using `sha256sum(1)`.
@@ -59,19 +59,27 @@ This just makes sure that the file was not corrupted while downloading.
 
 To verify that the downloaded files are the ones that the Void Linux maintainers published and signed you can use pgp.
 
-The file is signed with Juan RP’s GPG key:
-* Signer: `Juan RP <xtraeme@voidlinux.eu>`
-* KeyID: `482F9368`
-* Fingerprint: `F469 EAEF 52F5 9627 75B8  20CD AF19 F6CB 482F 9368`
+Images prior to 2017-10-07 were signed with Juan RP's key:
 
-You can use `gpg(1)` to receive the key from a keyserver using the following command or download it from [https://repo.voidlinux.eu/live/xtraeme.asc](https://repo.voidlinux.eu/live/xtraeme.asc).
+- Signer: `Juan RP <xtraeme@gmail.com>`
+- KeyID: `482F9368`
+- Fingerprint: `F469 EAEF 52F5 9627 75B8 20CD AF19 F6CB 482F 9368`
+
+His public key is available at [http://repo.voidlinux.eu/live/xtraeme.asc](http://repo.voidlinux.eu/live/xtraeme.asc)
+or in any known `PGP key server`. Follow these steps to verify the integrity and its digital signature:
+
+Images after 2017-10-07 are signed with a dedicated Void Images key.
+
+- Signer: `Void Linux Image Signing Key <images@voidlinux.eu>`
+- KeyID: `B48282A4`
+- Fingerprint: `CF24 B9C0 3809 7D8A 4495 8E2C 8DEB DA68 B482 82A4`
+
+This key is available at [http://repo.voidlinux.eu/live/current/void_images.asc](http://repo.voidlinux.eu/live/current/void_images.asc) or
+in most known `PGP key servers`.  Follow these steps to verify the integrity and signature.
 
 ```
-$ gpg --recv-keys 482F9368
-gpg: key AF19F6CB482F9368: public key "Juan RP <xtraeme@voidlinux.eu>" imported
-gpg: marginals needed: 3  completes needed: 1  trust model: pgp
-gpg: depth: 0  valid:   1  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 1u
-gpg: next trustdb check due at 2018-03-18
+$ gpg --recv-keys B48282A4
+gpg: key 8DEBDA68B48282A4: public key "Void Linux Image Signing Key <images@voidlinux.eu>" imported
 gpg: Total number processed: 1
 gpg:               imported: 1
 ```
@@ -79,16 +87,14 @@ gpg:               imported: 1
 You can now verify the signature of the `sha256sums.txt` file with `gpg(1)`.
 
 ```
-$ gpg --verify sha256sums.txt.asc
+$ gpg --verify sha256sums.txt.sig
 gpg: assuming signed data in 'sha256sums.txt'
-gpg: Signature made Wed 22 Feb 2017 02:59:20 AM CET
-gpg:                using RSA key AF19F6CB482F9368
-gpg: Good signature from "Juan RP <xtraeme@voidlinux.eu>" [unknown]
-gpg:                 aka "Juan RP <xtraeme@gmail.com>" [unknown]
-gpg:                 aka "[jpeg image of size 3503]" [unknown]
+gpg: Signature made Sun Oct  8 00:18:35 2017 CEST
+gpg:                using RSA key CF24B9C038097D8A44958E2C8DEBDA68B48282A4
+gpg: Good signature from "Void Linux Image Signing Key <images@voidlinux.eu>" [unknown]
 gpg: WARNING: This key is not certified with a trusted signature!
 gpg:          There is no indication that the signature belongs to the owner.
-Primary key fingerprint: F469 EAEF 52F5 9627 75B8  20CD AF19 F6CB 482F 9368
+Primary key fingerprint: CF24 B9C0 3809 7D8A 4495  8E2C 8DEB DA68 B482 82A4
 ```
 
 ## Using the Installer
