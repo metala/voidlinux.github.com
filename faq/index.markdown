@@ -62,7 +62,7 @@ To verify that the downloaded files are the ones that the Void Linux maintainers
 Images prior to 2017-10-07 were signed with Juan RP's key:
 
 - Signer: `Juan RP <xtraeme@gmail.com>`
-- KeyID: `482F9368`
+- KeyID: `AF19F6CB482F9368`
 - Fingerprint: `F469 EAEF 52F5 9627 75B8 20CD AF19 F6CB 482F 9368`
 
 His public key is available at [http://repo.voidlinux.eu/live/xtraeme.asc](http://repo.voidlinux.eu/live/xtraeme.asc)
@@ -71,14 +71,14 @@ or in any known `PGP key server`. Follow these steps to verify the integrity and
 Images after 2017-10-07 are signed with a dedicated Void Images key.
 
 - Signer: `Void Linux Image Signing Key <images@voidlinux.eu>`
-- KeyID: `B48282A4`
+- KeyID: `8DEBDA68B48282A4`
 - Fingerprint: `CF24 B9C0 3809 7D8A 4495 8E2C 8DEB DA68 B482 82A4`
 
 This key is available at [http://repo.voidlinux.eu/live/current/void_images.asc](http://repo.voidlinux.eu/live/current/void_images.asc) or
 in most known `PGP key servers`.  Follow these steps to verify the integrity and signature.
 
 ```
-$ gpg --recv-keys B48282A4
+$ gpg --recv-keys 8DEBDA68B48282A4
 gpg: key 8DEBDA68B48282A4: public key "Void Linux Image Signing Key <images@voidlinux.eu>" imported
 gpg: Total number processed: 1
 gpg:               imported: 1
